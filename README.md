@@ -33,7 +33,9 @@ An AI-powered multilingual legal assistant designed to help Indian citizens unde
 
 
 ---
-![Screenshot 2025-04-16 172019](https://github.com/user-attachments/assets/7325359b-a5ab-4c5e-a724-0c37f1e7e428)![Screenshot 2025-04-04 154619](https://github.com/user-attachments/assets/55c4f68d-5cb5-4a4e-b876-efac9201c7a5)
+![Screenshot 2025-04-16 172019](https://github.com/user-attachments/assets/7325359b-a5ab-4c5e-a724-0c37f1e7e428)!![Screenshot 2025-04-19 113145](https://github.com/user-attachments/assets/51290131-f024-4a92-861f-4a4ed7fcb52a)
+![Screenshot 2025-04-19 113135](https://github.com/user-attachments/assets/ecb7a677-e36a-46da-a2cb-d75c78fd1226)
+
 
 
 ## 📦 Installation & Setup
