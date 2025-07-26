@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+pydantic
+groq
+python-dotenv
+requests
+googletrans==4.0.0-rc1
+pymongo
+langdetect
+deep-translator
