@@ -1,3 +1,5 @@
+// 📍 Path: frontend/src/utils/axiosInstance.ts
+
 import axios, {
   AxiosError,
   AxiosResponse,
@@ -5,7 +7,7 @@ import axios, {
 } from "axios";
 
 const instance = axios.create({
-  baseURL: import.meta.env.VITE_REACT_APP_BACKEND_URL || "http://localhost:5000/api",
+  baseURL: import.meta.env.VITE_BACKEND_URL || "http://localhost:5000/api",
   withCredentials: true,
   headers: {
     "Content-Type": "application/json",
@@ -29,7 +31,7 @@ let isRefreshing = false;
 let failedQueue: { resolve: (token: string) => void; reject: (err: any) => void }[] = [];
 
 const processQueue = (error: any, token: string | null = null) => {
-  failedQueue.forEach(prom => {
+  failedQueue.forEach((prom) => {
     if (error) {
       prom.reject(error);
     } else {
@@ -70,7 +72,7 @@ instance.interceptors.response.use(
         const newAccessToken = (res.data as { accessToken: string }).accessToken;
 
         localStorage.setItem("accessToken", newAccessToken);
-        instance.defaults.headers.common['Authorization'] = `Bearer ${newAccessToken}`;
+        instance.defaults.headers.common["Authorization"] = `Bearer ${newAccessToken}`;
 
         processQueue(null, newAccessToken);
 

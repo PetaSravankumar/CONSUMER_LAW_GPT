@@ -51,7 +51,7 @@ export const loginUser = async (email: string, password: string) => {
 // ✅ GET user profile (protected route)
 export const getProfile = async () => {
   try {
-    const response = await api.get('/user/profile', authHeaders()); // Include Authorization header
+    const response = await api.get('/user/profile', authHeaders()); // ✅ Cleaned URL
     return response.data;
   } catch (error: any) {
     console.error('Profile fetch error:', error.response?.data || error.message);

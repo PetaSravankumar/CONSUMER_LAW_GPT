@@ -3,15 +3,18 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const dotenv = require('dotenv');
+const path = require('path');
 const morgan = require('morgan');
 const logger = require('./utils/logger');
 
-// Load environment variables from .env file
-dotenv.config();
+// Load environment variables based on NODE_ENV
+const envFile = `.env.${process.env.NODE_ENV || 'development'}`;
+dotenv.config({ path: path.resolve(process.cwd(), envFile) });
 
 // Configuration
 const PORT = parseInt(process.env.PORT || '5000', 10);
 const MONGO_URI = process.env.MONGO_URI;
+const FRONTEND_URL = process.env.FRONTEND_URL;
 const isDev = process.env.NODE_ENV !== 'production';
 
 // Validate Mongo URI
@@ -20,6 +23,7 @@ if (!MONGO_URI) {
   process.exit(1);
 }
 
+// Create Express app
 const app = express();
 
 // Request logging
@@ -31,10 +35,10 @@ app.use(
   })
 );
 
-// CORS Setup - adjust frontend origin based on environment
+// CORS Setup
 app.use(
   cors({
-    origin: isDev ? 'http://localhost:5173' : process.env.FRONTEND_URL,
+    origin: FRONTEND_URL,
     methods: ['GET', 'POST'],
     credentials: true,
   })
@@ -48,20 +52,20 @@ app.use(cookieParser());
 const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
 const dashboardRoutes = require('./routes/dashboard');
-const chatbotRoutes = require('./routes/chatbotRoutes'); // ✅ Chatbot routes added
+const chatbotRoutes = require('./routes/chatbotRoutes');
 
 // Route Registration
 app.use('/api/auth', authRoutes);
 app.use('/api/user', userRoutes);
 app.use('/api/dashboard', dashboardRoutes);
-app.use('/api/chat', chatbotRoutes); // ✅ Mounting chatbot routes
+app.use('/api/chat', chatbotRoutes);
 
-// Health Check / Root Route
+// Health Check
 app.get('/', (req, res) => {
   res.send('🚀 Backend API is up and running');
 });
 
-// Connect to MongoDB and start server
+// Connect to MongoDB and Start Server
 mongoose
   .connect(MONGO_URI)
   .then(() => {
