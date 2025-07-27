@@ -6,8 +6,11 @@ import axios, {
   InternalAxiosRequestConfig,
 } from "axios";
 
+// ✅ Updated baseURL using backendUrl variable
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
 const instance = axios.create({
-  baseURL: import.meta.env.VITE_BACKEND_URL || "http://localhost:5000/api",
+  baseURL: `${backendUrl}/api` || "http://localhost:5000/api",
   withCredentials: true,
   headers: {
     "Content-Type": "application/json",
